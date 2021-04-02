@@ -34,8 +34,13 @@ export default {
     this.axios
       .post(api, this.user)
       .then(res => {
-        console.log(res)
-        this.$router.push('/')
+        console.log(res);
+        if(res.data.success) {
+          const token = res.data.token;
+          const expired = res.data.expired;
+          document.cookie = `hextoken=${token}; expires=${new Date(expired)}`;
+          this.$router.push('/')
+        }
       })
     }
   },
