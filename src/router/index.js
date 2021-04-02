@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 //官方
 import Home from '../components/HelloWorld.vue'
 import Login from "@/components/pages/Login"
+import Admin from "@/components/pages/dashboard"
+import Products from "@/components/pages/Products"
 
 
 //自訂
@@ -26,6 +28,20 @@ const routes = [
     path: '/login',
     name: "Login",
     component: Login,
+  },
+  {
+    path: '/admin',
+    name: "Dashboard",
+    component: Admin,
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'products',//不用加斜線
+        name: "Product",
+        component: Products,
+        meta: { requiresAuth: true },
+      }
+    ]
   },
   
 ];
