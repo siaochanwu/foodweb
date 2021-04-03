@@ -36,10 +36,11 @@ export default {
       .then(res => {
         console.log(res);
         if(res.data.success) {
+          const vm = this;
           const token = res.data.token;
           const expired = res.data.expired;
           document.cookie = `hextoken=${token}; expires=${new Date(expired)}`;
-          this.$router.push('/admin/products')
+          vm.$router.push('/admin/products')
         }
       })
     }
