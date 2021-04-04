@@ -184,8 +184,8 @@
         </div>
       </div>
     </div>
-    
-    <div class="my-5 row justify-content-center">
+
+    <ValidationObserver ref="form" class="my-5 row justify-content-center">
       <form class="col-md-6" @submit.prevent="createOrder">
         <ValidationProvider class="form-group" rules="required|email" v-slot="{errors, classes}">
           <label for="useremail">Email</label>
@@ -256,7 +256,7 @@
           <button class="btn btn-danger">送出訂單</button>
         </div>
       </form>
-    </div>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -361,23 +361,20 @@ export default {
       const vm = this;
       const url =  `https://vue-course-api.hexschool.io/api/wendywu007/order`;
       const order = vm.form;
-      this.$http.post(url, { data: order }).then((response) => {
-        console.log(response);
-        vm.getCart();
-        vm.isLoading = false;
-      });
       // vm.isLoading = true;
-      // this.$validator.validate().then((result) => {
-      //   if (result) {
-      //     this.$http.post(url, { data: order }).then((response) => {
-      //       console.log('訂單已建立', response);
-      //       // vm.getCart();
-      //       vm.isLoading = false;
-      //     });
-      //   } else {
-      //     console.log('欄位不完整');
-      //   }
-      // });
+      vm.$refs.form.validate().then((success) => {
+        if (success) {
+          vm.$http.post(url, { data: order }).then((response) => {
+            console.log('訂單已建立', response);
+            if (response.data.success) {
+              vm.$router.push(`/customer_checkout/${response.data.orderId}`)
+            }
+            vm.isLoading = false;
+          });
+        } else {
+          console.log('欄位不完整');
+        }
+      });
     }
   },
   created() {

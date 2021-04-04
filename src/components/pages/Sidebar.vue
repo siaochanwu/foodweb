@@ -1,9 +1,9 @@
 <template lang="">
-  <div>
+  <div class="sidebar">
     <div class="container-fluid">
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-          <div class="position-sticky pt-3">
+          <div class="position-sticky pt-3 ml-5">
             <ul class="nav flex-column">
               <span>管理員</span>
               <li class="nav-item">
@@ -31,6 +31,8 @@ export default {
   
 }
 </script>
-<style lang="">
-  
+<style>
+  .sidebar {
+    
+  }
 </style>

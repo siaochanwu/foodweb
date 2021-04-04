@@ -9,7 +9,7 @@ import Products from "@/components/pages/Products"
 import Coupons from "@/components/pages/Coupons"
 import Orders from "@/components/pages/Orders"
 import CustomerOrder from "@/components/pages/CustomerOrder"
-
+import CustomerCheckout from "@/components/pages/CustomerCheckout"
 
 
 //自訂
@@ -68,6 +68,11 @@ const routes = [
         path: 'customer_order',//不用加斜線
         name: "CustomerOrder",
         component: CustomerOrder,
+      },
+      {
+        path: 'customer_checkout/:orderId',//不用加斜線
+        name: "CustomerCheckout",
+        component: CustomerCheckout,
       },
     ]
   },
