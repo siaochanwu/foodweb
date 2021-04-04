@@ -3,8 +3,13 @@ import VueRouter from 'vue-router'
 //官方
 // import Home from '../components/HelloWorld.vue'
 import Login from "@/components/pages/Login"
+import DashBoard from "@/components/pages/dashboard"
 import Admin from "@/components/pages/dashboard"
 import Products from "@/components/pages/Products"
+import Coupons from "@/components/pages/Coupons"
+import Orders from "@/components/pages/Orders"
+import CustomerOrder from "@/components/pages/CustomerOrder"
+
 
 
 //自訂
@@ -39,7 +44,31 @@ const routes = [
         name: "Products",
         component: Products,
         meta: { requiresAuth: true },
+      },
+      {
+        path: 'orders',//不用加斜線
+        name: "Orders",
+        component: Orders,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'coupons',//不用加斜線
+        name: "Coupons",
+        component: Coupons,
+        meta: { requiresAuth: true },
       }
+    ]
+  },
+  {
+    path: '/',
+    name: "Dashboard",
+    component: DashBoard,
+    children: [
+      {
+        path: 'customer_order',//不用加斜線
+        name: "CustomerOrder",
+        component: CustomerOrder,
+      },
     ]
   },
   

@@ -5,41 +5,19 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div class="position-sticky pt-3">
             <ul class="nav flex-column">
+              <span>管理員</span>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
-                  <span data-feather="home"></span>
-                  Dashboard
-                </a>
+                <router-link to="/admin/products" class="nav-link">產品列表</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
-                  Orders
-                </a>
+                <router-link to="/admin/orders" class="nav-link">訂單列表</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
-                  Products
-                </a>
+                <router-link to="/admin/coupons" class="nav-link">優惠券</router-link>
               </li>
+              <span>模擬功能</span>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Customers
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Reports
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integrations
-                </a>
+                <router-link to="/customer_order" class="nav-link">結帳區</router-link>
               </li>
             </ul>
           </div>
