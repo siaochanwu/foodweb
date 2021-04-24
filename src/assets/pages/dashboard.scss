@@ -16,13 +16,14 @@
   .sidebar {
     position: fixed;
     top: 0;
+    padding-top: 50px;
     /* rtl:raw:
   right: 0;
   */
     bottom: 0;
     /* rtl:remove */
     left: 0;
-    z-index: 100;
+    z-index: 0;
     /* Behind the navbar */
     padding: 48px 0 0;
     /* Height of navbar */
@@ -72,24 +73,36 @@
   /*
  * Navbar
  */
-
+  nav {
+    z-index: 10;
+  }
+  .navbar {
+    padding: 0;
+  }
   .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;
     font-size: 1rem;
     background-color: rgba(0, 0, 0, .25);
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-
+  
   .navbar .navbar-toggler {
     top: .25rem;
     right: 1rem;
   }
-
+  marquee {
+    color: #fff;
+  }
   .navbar .form-control {
     padding: .75rem 1rem;
     border-width: 0;
-    border-radius: 0;
+    border-radius: 10px;
+    width: 200px;
+
   }
 
   .form-control-dark {
@@ -101,5 +114,14 @@
   .form-control-dark:focus {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  }
+  .cart {
+    color: #fff;
+    margin: 10px;
+  }
+  .nav-link {
+    i {
+      color: #fff;
+    }
   }
 }

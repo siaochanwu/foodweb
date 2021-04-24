@@ -1,8 +1,32 @@
 <template>
   <div>
     <!-- <loading :active.sync="isLoading"></loading> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="menu collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="menu">
+            <a class="nav-link" @click="category = 'main'">主餐</a>
+          </li>
+          <li class="menu">
+            <a class="nav-link" @click="category = 'light'">輕食</a>
+          </li>
+          <li class="menu">
+            <a class="nav-link" @click="category = 'sweet'">甜點</a>
+          </li>
+          <li class="menu">
+            <a class="nav-link" @click="category = 'drink'">飲品</a>
+          </li>
+          <li class="menu">
+            <a class="nav-link" @click="category = 'alcohol'">酒精</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <div class="row mt-4">
-      <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
+      <div class="col-md-4 mb-4" v-for="item in filterData" :key="item.id">
         <div class="card border-0 shadow-sm">
           <div
             style="height: 150px; background-size: cover; background-position: center"
@@ -282,7 +306,8 @@ export default {
           address:'',
         },
         message:'',
-      }
+      },
+      category: ""
     };
   },
   methods: {
@@ -377,10 +402,54 @@ export default {
       });
     }
   },
+  computed: {
+    filterData: function () {
+      if (this.category == 'main') {
+        var main = [];
+        this.products.forEach(function(item){
+          if(item.category == '主餐') {
+            main.push(item);
+          }})
+          return main;
+        } else if (this.category == 'light'){
+          var light = [];
+        this.products.forEach(function(item){
+          if(item.category == '輕食') {
+            light.push(item);
+          }})
+          return light;
+        } else if (this.category == 'sweet'){
+          var sweet = [];
+        this.products.forEach(function(item){
+          if(item.category == '甜點') {
+            sweet.push(item);
+          }})
+          return sweet;
+        } else if (this.category == 'drink'){
+          var drink = [];
+        this.products.forEach(function(item){
+          if(item.category == '飲品') {
+            drink.push(item);
+          }})
+          return drink;
+        } else if (this.category == 'alcohol'){
+          var alcohol = [];
+        this.products.forEach(function(item){
+          if(item.category == '酒精') {
+            alcohol.push(item);
+          }})
+          return alcohol;
+        }
+         else {
+          return this.products;
+        }
+      }
+  },
   created() {
     this.getProducts();
     this.getCart();
-  },
-};
+  }
+}
 </script>
+
 
