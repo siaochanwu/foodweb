@@ -17,6 +17,9 @@
               </li>
               <span>模擬功能</span>
               <li class="nav-item">
+                <router-link to="/menu" class="nav-link">菜單</router-link>
+              </li>
+              <li class="nav-item">
                 <router-link to="/customer_order" class="nav-link">結帳區</router-link>
               </li>
             </ul>

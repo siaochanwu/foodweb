@@ -10,6 +10,7 @@ import Coupons from "@/components/pages/Coupons"
 import Orders from "@/components/pages/Orders"
 import CustomerOrder from "@/components/pages/CustomerOrder"
 import CustomerCheckout from "@/components/pages/CustomerCheckout"
+import Menu from "@/components/pages/Menu"
 
 
 //自訂
@@ -64,6 +65,11 @@ const routes = [
     name: "Dashboard",
     component: DashBoard,
     children: [
+      {
+        path: 'menu',
+        name: "Menu",
+        component: Menu,
+      },
       {
         path: 'customer_order',//不用加斜線
         name: "CustomerOrder",
