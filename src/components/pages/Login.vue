@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'login',
   data() {
@@ -40,6 +41,8 @@ export default {
           const token = res.data.token;
           const expired = res.data.expired;
           document.cookie = `hextoken=${token}; expires=${new Date(expired)}`;
+          this.$store.dispatch('LOGIN', true);
+          console.log(this.$store.state.login)
           vm.$router.push('/admin/products')
         }
       })

@@ -64,6 +64,7 @@ export default {
         .post(api)
         .then((res) => {
           console.log(res);
+          this.$store.dispatch('LOGOUT', false);
           this.$router.push('login')
         }).catch((err) => {
           console.log(err)

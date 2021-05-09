@@ -69,23 +69,23 @@ export default {
   methods: {
     getOrder() {
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/order/${this.orderId}`;
-      this.isLoading = true;
+      this.$store.dispatch('LOADING', true);
       this.axios
         .get(api)
         .then(res => {
           console.log(res);
           this.order = res.data.order;
-          this.isLoading = false;
+          this.$store.dispatch('LOADING', false);
         })
     },
     payOrder() {
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/pay/${this.orderId}`;
-      this.isLoading = true;
+      this.$store.dispatch('LOADING', true);
       this.axios
         .post(api)
         .then(res => {
           console.log(res);
-          this.isLoading = false;
+          this.$store.dispatch('LOADING', false);
           this.getOrder();
         })
     }

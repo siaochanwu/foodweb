@@ -24,6 +24,9 @@
                 </ul>
             </div>
         </nav>
+        <div class="mainimg">
+            <img src="../../assets/pexels-cottonbro-4252146.jpg" alt="">
+        </div>
         <div class="row mt-4">
             <div class="col-md-4 mb-4" v-for="item in filterData" :key="item.id">
                 <div class="card border-0 shadow-sm">
@@ -157,7 +160,6 @@ export default {
         status: {
             loadingItem: "", //存放產品id
         },
-        isLoading: false,
         cart: {},
         coupon_code: "",
         form:{
@@ -176,11 +178,11 @@ export default {
         getProducts() {
             const vm = this;
             const url = "https://vue-course-api.hexschool.io/api/wendywu007/products/all";
-            vm.isLoading = true;
+            this.$store.dispatch('LOADING', true);
             this.$http.get(url).then((response) => {
                 vm.products = response.data.products;
                 console.log(response);
-                vm.isLoading = false;
+                this.$store.dispatch('LOADING', false);
             });
             },
             getProduct(id) {
@@ -211,23 +213,23 @@ export default {
             },
             getCart() {
             const vm = this;
-            vm.isLoading = true;
+            this.$store.dispatch('LOADING', true);
             const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
             this.$http.get(url).then((response) => {
                 console.log(response);
                 vm.cart = response.data.data;
-                vm.isLoading = false;
+                this.$store.dispatch('LOADING', false);
             });
             },
             removeItem(id) {
             const vm = this;
             const url = `https://vue-course-api.hexschool.io/api/wendywu007/cart/${id}`;
-            vm.isLoading = true;
+            this.$store.dispatch('LOADING', true);
 
             this.$http.delete(url).then((response) => {
                 console.log(response);
                 vm.getCart();
-                vm.isLoading = false;
+                this.$store.dispatch('LOADING', false);
 
             });
         

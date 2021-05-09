@@ -142,7 +142,7 @@
 </template>
 
 <script>
-
+import $ from "jquery";
 
 export default {
   data() {
@@ -152,7 +152,6 @@ export default {
       status: {
         loadingItem: "", //存放產品id
       },
-      isLoading: false,
       cart: {},
       coupon_code: "",
       form:{
@@ -174,18 +173,18 @@ export default {
       const coupon = {
         code: vm.coupon_code,
       };
-      vm.isLoading = true;
+      this.$store.dispatch('LOADING', true);
       this.$http.post(url, { data: coupon }).then((response) => {
         console.log(response);
         vm.getCart();
-        vm.isLoading = false;
+        this.$store.dispatch('LOADING', false);
       });
     },
     createOrder(){
       const vm = this;
       const url =  `https://vue-course-api.hexschool.io/api/wendywu007/order`;
       const order = vm.form;
-      // vm.isLoading = true;
+      this.$store.dispatch('LOADING', true);
       vm.$refs.form.validate().then((success) => {
         if (success) {
           vm.$http.post(url, { data: order }).then((response) => {
@@ -193,13 +192,38 @@ export default {
             if (response.data.success) {
               vm.$router.push(`/customer_checkout/${response.data.orderId}`)
             }
-            vm.isLoading = false;
+            this.$store.dispatch('LOADING', false);
           });
         } else {
           console.log('欄位不完整');
         }
       });
-    }
+    },
+    getCart() {
+      const vm = this;
+      this.$store.dispatch('LOADING', true);
+      const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+      this.$http.get(url).then((response) => {
+          console.log(response);
+          vm.cart = response.data.data;
+          this.$store.dispatch('LOADING', false);
+      });
+    },
+    addtoCart(id, qty = 1) {
+      const vm = this;
+      const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+      vm.status.loadingItem = id;
+      const cart = {
+          product_id: id,
+          qty,
+      };
+      this.$http.post(url, { data: cart }).then((response) => {
+          console.log(response);
+          vm.status.loadingItem = "";
+          vm.getCart();
+          $("#productModal").modal("hide");
+      });
+    },
   },
   computed: {
     filterData: function () {
@@ -239,13 +263,12 @@ export default {
           }})
           return alcohol;
         }
-         else {
+        else {
           return this.products;
         }
       }
   },
   created() {
-    this.getProducts();
     this.getCart();
   }
 }

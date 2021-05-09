@@ -198,17 +198,15 @@ export default {
       },
       due_date:new Date(),
       isNew:false,
-      isLoading:false,
-
     }
   },
   methods:{
     getCoupons(page = 1){
       const vm = this;
-      this.isLoading = true;
+      this.$store.dispatch('LOADING', true);
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/admin/coupons?page=${page}`;
       this.$http.get(api).then((response) => {
-        this.isLoading = false;
+        this.$store.dispatch('LOADING', false);
         console.log(response.data);
         vm.coupons = response.data.coupons;
         vm.pagination = response.data.pagination;

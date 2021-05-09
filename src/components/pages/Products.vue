@@ -296,6 +296,7 @@
 
 <script>
 import $ from "jquery";
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -304,7 +305,6 @@ export default {
       tempProduct: {},
       pagination: {},
       isNew: false,
-      isLoading: false,
       status: {
         fileUploading: false,
       },
@@ -313,10 +313,11 @@ export default {
   methods: {
     getProducts(page =1) {
       const vm = this;
-      this.isLoading = true;
+      this.$store.dispatch('LOADING', true);
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/admin/products?page=${page}`;
       this.$http.get(api).then((response) => {
-        this.isLoading = false;
+      this.$store.dispatch('LOADING', false);
+
         console.log(response.data);
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
@@ -410,5 +411,8 @@ export default {
     this.$http.defaults.headers.common["Authorization"] = myCookie;
     this.getProducts();
   },
+  computed: {
+  ...mapState({})
+  }
 };
 </script>

@@ -3,6 +3,7 @@ import App from './App.vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import router from "./router";
+import Vuex from 'vuex';
 import 'bootstrap';
 import Loading from "vue-loading-overlay";
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -11,7 +12,10 @@ import money from "./assets/filters/money";
 import { ValidationObserver, ValidationProvider, extend, localize} from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import TW from 'vee-validate/dist/locale/zh_TW.json';
+import store from "./store";
 
+
+Vue.use(Vuex);
 Vue.config.productionTip = false;
 axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
@@ -31,6 +35,7 @@ localize('zh_TW', TW);
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
 
