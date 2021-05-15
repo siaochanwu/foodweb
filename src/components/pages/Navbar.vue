@@ -10,7 +10,9 @@
 
       <marquee direction="right">歡慶本店一周年!全館免運!</marquee>
       <input class="form-control form-control-dark w-40" type="text" placeholder="Search" aria-label="Search">
-      
+      <div class="login">
+        <router-link to="/admin/login" class="nav-link">Login</router-link>
+      </div>
       <div class="cart" @click="getCart" ><i class="fas fa-cart-plus" @click="active = !active"></i></div>
       <ul class="navbar-nav px-3">
         

@@ -13,6 +13,7 @@ import { ValidationObserver, ValidationProvider, extend, localize} from 'vee-val
 import * as rules from 'vee-validate/dist/rules';
 import TW from 'vee-validate/dist/locale/zh_TW.json';
 import store from "./store";
+import "./bus";
 
 
 Vue.use(Vuex);

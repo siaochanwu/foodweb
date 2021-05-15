@@ -1,33 +1,28 @@
 <template lang="">
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="menu collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="menu">
-                    <a class="nav-link" @click="category = 'main'">主餐</a>
-                </li>
-                <li class="menu">
-                    <a class="nav-link" @click="category = 'light'">輕食</a>
-                </li>
-                <li class="menu">
-                    <a class="nav-link" @click="category = 'sweet'">甜點</a>
-                </li>
-                <li class="menu">
-                    <a class="nav-link" @click="category = 'drink'">飲品</a>
-                </li>
-                <li class="menu">
-                    <a class="nav-link" @click="category = 'alcohol'">酒精</a>
-                </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="mainimg">
-            <img src="../../assets/pexels-cottonbro-4252146.jpg" alt="">
+        <div class="menu">
+            <ul>
+            <li class="menu">
+                <a @click="category = 'main'">主餐</a>
+            </li>
+            <li class="menu">
+                <a @click="category = 'light'">輕食</a>
+            </li>
+            <li class="menu">
+                <a @click="category = 'sweet'">甜點</a>
+            </li>
+            <li class="menu">
+                <a @click="category = 'drink'">飲品</a>
+            </li>
+            <li class="menu">
+                <a @click="category = 'alcohol'">酒精</a>
+            </li>
+            </ul>
         </div>
-        <div class="row mt-4">
+        <div class="mainimg">
+            <img src="../../assets/pexels-1.jpg" alt="">
+        </div>
+        <div class="row mt-4 m-4">
             <div class="col-md-4 mb-4" v-for="item in filterData" :key="item.id">
                 <div class="card border-0 shadow-sm">
                 <div

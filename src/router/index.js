@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 //官方
 // import Home from '../components/HelloWorld.vue'
 import Login from "@/components/pages/Login"
-import DashBoard from "@/components/pages/dashboard"
 import Admin from "@/components/pages/dashboard"
 import Products from "@/components/pages/Products"
 import Coupons from "@/components/pages/Coupons"
@@ -11,7 +10,7 @@ import Orders from "@/components/pages/Orders"
 import CustomerOrder from "@/components/pages/CustomerOrder"
 import CustomerCheckout from "@/components/pages/CustomerCheckout"
 import Menu from "@/components/pages/Menu"
-
+import Normal from "@/components/pages/Normal";
 
 //自訂
 
@@ -62,8 +61,8 @@ const routes = [
   },
   {
     path: '/',
-    name: "Dashboard",
-    component: DashBoard,
+    name: "Normal",
+    component: Normal,
     children: [
       {
         path: 'menu',
