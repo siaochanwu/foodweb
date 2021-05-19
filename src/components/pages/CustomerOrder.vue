@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="CustomerOrder">
     <!-- <loading :active.sync="isLoading"></loading> -->
     
     
-    <div class="my-5 row justify-content-center" v-show="cart.total > 0">
-      <div class="my-5 row justify-content-center">
+    <div class="order my-5 row justify-content-center" v-show="cart.total > 0">
+      <div >
+      <span class="title">購物車</span>
         <table class="table">
           <thead>
             <th></th>
@@ -66,8 +67,9 @@
       </div>
     </div>
 
-    <ValidationObserver ref="form" class="my-5 row justify-content-center">
+    <ValidationObserver ref="form" class="info my-5 row justify-content-center">
       <form class="col-md-6" @submit.prevent="createOrder">
+      <div class="title">個人資料</div>
         <ValidationProvider class="form-group" rules="required|email" v-slot="{errors, classes}">
           <label for="useremail">Email</label>
           <input
@@ -129,7 +131,7 @@
             id=""
             class="form-control"
             cols="30"
-            rows="10"
+            rows="3"
             v-model="form.message"
           ></textarea>
         </div>
@@ -169,12 +171,12 @@ export default {
   methods: {
     addCouponCode() {
       const vm = this;
-      const url = `https://vue-course-api.hexschool.io/api/wendywu007/coupon`;
+      const api = `https://vue-course-api.hexschool.io/api/wendywu007/coupon`;
       const coupon = {
         code: vm.coupon_code,
       };
       this.$store.dispatch('LOADING', true);
-      this.$http.post(url, { data: coupon }).then((response) => {
+      this.$http.post(api, { data: coupon }).then((response) => {
         console.log(response);
         vm.getCart();
         this.$store.dispatch('LOADING', false);
@@ -182,12 +184,12 @@ export default {
     },
     createOrder(){
       const vm = this;
-      const url =  `https://vue-course-api.hexschool.io/api/wendywu007/order`;
+      const api =  `https://vue-course-api.hexschool.io/api/wendywu007/order`;
       const order = vm.form;
       this.$store.dispatch('LOADING', true);
       vm.$refs.form.validate().then((success) => {
         if (success) {
-          vm.$http.post(url, { data: order }).then((response) => {
+          vm.$http.post(api, { data: order }).then((response) => {
             console.log('訂單已建立', response);
             if (response.data.success) {
               vm.$router.push(`/customer_checkout/${response.data.orderId}`)
@@ -202,8 +204,8 @@ export default {
     getCart() {
       const vm = this;
       this.$store.dispatch('LOADING', true);
-      const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
-      this.$http.get(url).then((response) => {
+      const api = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+      this.$http.get(api).then((response) => {
           console.log(response);
           vm.cart = response.data.data;
           this.$store.dispatch('LOADING', false);
@@ -211,13 +213,13 @@ export default {
     },
     addtoCart(id, qty = 1) {
       const vm = this;
-      const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+      const api = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
       vm.status.loadingItem = id;
       const cart = {
           product_id: id,
           qty,
       };
-      this.$http.post(url, { data: cart }).then((response) => {
+      this.$http.post(api, { data: cart }).then((response) => {
           console.log(response);
           vm.status.loadingItem = "";
           vm.getCart();

@@ -16,7 +16,7 @@
           <td>{{ item.user.email }}</td>
           <td>
             <ul>
-              <li v-for="product in item.products" :key="product">
+              <li v-for="product in item.products" :key="product.id">
                 {{ product.product.title }}-{{ product.qty}}
               </li>
             </ul>
@@ -26,13 +26,18 @@
         </tr>
       </tbody>
     </table>
+    <pagination :has_pre="pagination.has_pre" :has_next="pagination.has_next"
+    :total_pages="pagination.total_pages" :current_page="pagination.current_page" @getData="getData" />
   </div>
 </template>
 
 <script>
-
+import pagination from "@/components/pages/Pagination.vue";
 
 export default {
+  components:{
+    pagination
+  },
   data() {
     return {
       pagination: {},
@@ -40,19 +45,21 @@ export default {
     }
   },
   methods: {
-    getOrders(page) {
+    getData(page =1) {
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/orders?page=${page}`;
       this.axios
         .get(api)
         .then(res => {
           console.log(res);
           this.order = res.data.orders;
+          const date = new Date(this.order.create_at).getTime();  
+          console.log(date);
           this.pagination = res.data.pagination;
         })
     }
   },
   created() {
-    this.getOrders();
+    this.getData();
   }
 }
 </script>

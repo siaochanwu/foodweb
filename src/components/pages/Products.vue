@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
       <button
         class="btn btn-primary"
@@ -55,21 +54,9 @@
       </tbody>
     </table>
 
-    <!-- <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item" :class="{'disabled': !pagination.has_pre}">
-        <a class="page-link" href="#" aria-label="Previous" @click.prevent="getProducts(pagination.current_page-1)">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item" v-for="page in pagination.total_pages" :key="page" :class="{'active': pagination.current_page == page}"><a class="page-link" href="#" @click.prevent="getProducts(page)">{{page}}</a></li>
-      <li class="page-item" :class="{'disabled': !pagination.has_next}">
-        <a class="page-link" href="#" aria-label="Next" @click.prevent="getProducts(pagination.current_page+1)">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>  -->
+
+    <pagination :has_pre="pagination.has_pre" :has_next="pagination.has_next"
+    :total_pages="pagination.total_pages" :current_page="pagination.current_page" @getData="getData" />
 
 
     <div
@@ -297,8 +284,12 @@
 <script>
 import $ from "jquery";
 import { mapState } from "vuex";
+import pagination from "@/components/pages/Pagination.vue";
 
 export default {
+  components: {
+    pagination
+  },
   data() {
     return {
       products: [],
@@ -311,13 +302,13 @@ export default {
     };
   },
   methods: {
-    getProducts(page =1) {
+    getData(page) {
       const vm = this;
       this.$store.dispatch('LOADING', true);
+      console.log(page);
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/admin/products?page=${page}`;
       this.$http.get(api).then((response) => {
       this.$store.dispatch('LOADING', false);
-
         console.log(response.data);
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
@@ -345,10 +336,10 @@ export default {
         console.log(response.data);
         if (response.data.success) {
           $("#delProductModal").modal("hide");
-          vm.getProducts();
+          vm.getData();
         } else {
           $("#delProductModal").modal("hide");
-          vm.getProducts();
+          vm.getData();
           console.log("刪除失敗");
         }
       });
@@ -367,10 +358,10 @@ export default {
         // vm.products = response.data.products;
         if (response.data.success) {
           $("#productModal").modal("hide");
-          vm.getProducts();
+          vm.getData();
         } else {
           $("#productModal").modal("hide");
-          vm.getProducts();
+          vm.getData();
           console.log("新增失敗");
         }
       });
@@ -381,11 +372,11 @@ export default {
       const vm = this;
       const formData = new FormData();
       formData.append("file-to-upload", uploadFiled);
-      const url =
+      const api =
         "https://vue-course-api.hexschool.io/api/wendywu007/admin/upload";
       vm.status.fileUploading = true;
       this.$http
-        .post(url, formData, {
+        .post(api, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -409,7 +400,7 @@ export default {
     );
     // console.log("myCookie", myCookie);
     this.$http.defaults.headers.common["Authorization"] = myCookie;
-    this.getProducts();
+    this.getData();
   },
   computed: {
   ...mapState({})

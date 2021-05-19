@@ -1,9 +1,9 @@
 <template lang="">
-  <div>
+  <div class="nav">
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Eat Well
-        <i class="fas fa-cookie-bite"></i>
-      </a>
+      <router-link to="/menu" class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Eat Well
+      <i class="fas fa-cookie-bite"></i>
+      </router-link>
       <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,20 +35,34 @@
           <div>
             <div>{{ item.product.title}}</div>
             <div>{{ item.product.price | money}}</div>
-            <div>數量:{{ item.qty}}{{ item.product.unit}}</div>
+            <div>數量:
+              <select name="" id="" v-model="item.qty" @click="addtoCart(item.id, item.qty)">
+                <option :value="num" v-for="num in 5" :key="num">
+                  {{ num }}
+                </option>
+              </select>
+              {{ item.product.unit}}
+            </div>
             <button
               type="button"
-              class="btn btn-outline-danger btn-sm"
+              class="btn btn-outline-danger btn-sm ml-0"
               @click="removeItem(item.id)"
             >
               <i class="far fa-trash-alt"></i>
             </button>
           </div>
         </div>
+        <div class="btn">
+          <button type="button" class="btn btn-outline-success" @click="seecart">
+          繼續購物
+        </button>
+        <button type="button" class="btn btn-success" v-show="hasData" @click="seecart">
+          <router-link to="/customer_order" class="topay">結帳</router-link>
+        </button>
+        </div>
+        
       </div>
-    
-    
-  </div>
+    </div>
 </template>
 <script>
 export default {
@@ -74,16 +88,33 @@ export default {
     },
     getCart() {
       const vm = this;
-      const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
-      this.$http.get(url).then((response) => {
+      const api = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+      this.$http.get(api).then((response) => {
         console.log(response.data.data.carts);
         vm.cartData = response.data.data.carts;
       });
     },
+    addtoCart(id, qty = 1) {
+      console.log(id,qty)
+      const vm = this;
+      const api = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+      // vm.status.loadingItem = id;
+      const cart = {
+          product_id: id,
+          qty
+      };
+      console.log(cart);
+      this.$http.post(api, cart).then((response) => {
+          console.log("123",response);
+          // vm.status.loadingItem = "";
+          vm.getCart();
+          console.log(this.cartData)
+      });
+    },
     removeItem(id) {
       const vm = this;
-      const url = `https://vue-course-api.hexschool.io/api/wendywu007/cart/${id}`;
-      this.$http.delete(url).then(res => {
+      const api = `https://vue-course-api.hexschool.io/api/wendywu007/cart/${id}`;
+      this.$http.delete(api).then(res => {
         console.log(res.data);
         vm.getCart();
       })
@@ -93,7 +124,12 @@ export default {
     }
   },
   created(){
-    this.getCart()
+    this.getCart();
+  },
+  computed:{
+    hasData(){
+      return this.cartData.length > 0 ? true : false
+    }
   }
 }
 </script>

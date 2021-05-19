@@ -151,30 +151,30 @@ export default {
     data() {
         return {
             products: [],
-        product: {}, //存放modal資料
-        status: {
-            loadingItem: "", //存放產品id
-        },
-        cart: {},
-        coupon_code: "",
-        form:{
-            user:{
-            name:'',
-            email:'',
-            tel:'',
-            address:'',
+            product: {}, //存放modal資料
+            status: {
+                loadingItem: "", //存放產品id
             },
-            message:'',
-        },
-        category: ""
+            cart: {},
+            coupon_code: "",
+            form:{
+                user:{
+                name:'',
+                email:'',
+                tel:'',
+                address:'',
+                },
+                message:'',
+            },
+            category: ""
         }
     },
     methods: {
         getProducts() {
             const vm = this;
-            const url = "https://vue-course-api.hexschool.io/api/wendywu007/products/all";
+            const api = "https://vue-course-api.hexschool.io/api/wendywu007/products/all";
             this.$store.dispatch('LOADING', true);
-            this.$http.get(url).then((response) => {
+            this.$http.get(api).then((response) => {
                 vm.products = response.data.products;
                 console.log(response);
                 this.$store.dispatch('LOADING', false);
@@ -182,9 +182,9 @@ export default {
             },
             getProduct(id) {
             const vm = this;
-            const url = `https://vue-course-api.hexschool.io/api/wendywu007/product/${id}`;
+            const api = `https://vue-course-api.hexschool.io/api/wendywu007/product/${id}`;
             vm.status.loadingItem = id;
-            this.$http.get(url).then((response) => {
+            this.$http.get(api).then((response) => {
                 vm.product = response.data.product;
                 $("#productModal").modal("show");
                 console.log(response);
@@ -192,14 +192,14 @@ export default {
             });
             },
             addtoCart(id, qty = 1) {
-            const vm = this;
-            const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
-            vm.status.loadingItem = id;
-            const cart = {
-                product_id: id,
-                qty,
+                const vm = this;
+                const api = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+                vm.status.loadingItem = id;
+                const cart = {
+                    product_id: id,
+                    qty,
             };
-            this.$http.post(url, { data: cart }).then((response) => {
+            this.$http.post(api, { data: cart }).then((response) => {
                 console.log(response);
                 vm.status.loadingItem = "";
                 vm.getCart();
@@ -207,26 +207,26 @@ export default {
             });
             },
             getCart() {
-            const vm = this;
-            this.$store.dispatch('LOADING', true);
-            const url = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
-            this.$http.get(url).then((response) => {
-                console.log(response);
-                vm.cart = response.data.data;
-                this.$store.dispatch('LOADING', false);
-            });
+                const vm = this;
+                this.$store.dispatch('LOADING', true);
+                const api = "https://vue-course-api.hexschool.io/api/wendywu007/cart";
+                this.$http.get(api).then((response) => {
+                    console.log(response);
+                    vm.cart = response.data.data;
+                    this.$store.dispatch('LOADING', false);
+                });
             },
             removeItem(id) {
-            const vm = this;
-            const url = `https://vue-course-api.hexschool.io/api/wendywu007/cart/${id}`;
-            this.$store.dispatch('LOADING', true);
+                const vm = this;
+                const api = `https://vue-course-api.hexschool.io/api/wendywu007/cart/${id}`;
+                this.$store.dispatch('LOADING', true);
 
-            this.$http.delete(url).then((response) => {
-                console.log(response);
-                vm.getCart();
-                this.$store.dispatch('LOADING', false);
+                this.$http.delete(api).then((response) => {
+                    console.log(response);
+                    vm.getCart();
+                    this.$store.dispatch('LOADING', false);
 
-            });
+                });
         
         }
     },

@@ -1,0 +1,118 @@
+/*
+* Navbar
+*/
+
+.navbar {
+    padding: 0;
+    // position: fixed;
+    // top: 0;
+    width: 100%;
+}
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .navbar-toggler {
+    top: .25rem;
+    right: 1rem;
+}
+marquee {
+    color: #fff;
+}
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 10px;
+    width: 200px;
+
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+.login a{
+    color: #fff;
+}
+.cart {
+    color: #fff;
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.cartdetail {
+    position: absolute;
+    top: 10%;
+    right: 1%;
+    width: 300px;
+    background-color: #fff;
+    z-index: 20;
+    border-radius: 2%;
+    box-shadow: 0 0 10px rgb(136, 135, 135);
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        display: block;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #fff;
+        top: -10px;
+        right: 15%;
+    }
+    .title {
+        border-bottom: 1px solid #ccc;
+        width: 90%;
+        margin: 10px auto;
+        display: flex;
+        justify-content: space-between;
+        .fas {
+        cursor: pointer;
+        }
+    }
+    .detail {
+        margin: 20px;
+        display: flex;
+        img {
+        width: 100px;
+        height: 100px;
+        padding-right: 20px;
+        }
+    }
+    .btn{
+        margin: 5px auto;
+        display: flex;
+        align-items: center;
+        .topay{
+            color: #fff;
+            text-decoration: none;
+        }
+        .close{
+            background: rgb(156, 155, 155);
+            color: #000;
+        }
+    }
+}
+.hidecart {
+    display: none;
+}
+.nav-link {
+    i {
+        color: #fff;
+    }
+}
