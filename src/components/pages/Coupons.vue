@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
       <button
-        class="btn btn-primary"
+        class="btn btn-warning"
         data-toggle="modal"
         data-target="#couponModal"
         @click="openModal(true)"
@@ -12,11 +12,11 @@
       </button>
     </div>
     <table class="table mt-4">
-      <thead>
+      <thead class="bg-warning">
         <tr>
           <th>名稱</th>
           <th width="100">折扣</th>
-          <th width="100">是否啟用</th>
+          <th width="90">是否啟用</th>
           <th width="90">編輯</th>
           <th width="90">刪除</th>
         </tr>
@@ -24,14 +24,14 @@
       <tbody>
         <tr v-for="item in coupons" :key="item.id">
           <td>{{ item.title }}</td>
-          <td class="text-right">{{ item.percent }}</td>
+          <td class="text-left">{{ item.percent }}%</td>
           <td>
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
+            <span v-if="item.is_enabled" class="text-primary">啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-outline-success"
               btn-sm
               @click="openModal(false, item)"
             >
@@ -40,7 +40,7 @@
           </td>
           <td>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-outline-danger"
               btn-sm
               @click="deleteModal(item)"
             >
@@ -184,7 +184,9 @@
 </template>
 
 <script>
-import $ from "jquery";
+import { mapState } from 'vuex'
+import $ from "jquery"
+
 export default {
   data(){
     return{
@@ -251,8 +253,11 @@ export default {
       });
     },
   },
-    created(){
-      this.getCoupons();
-    }
-};
+  created(){
+    this.getCoupons();
+  },
+  computed: {
+    ...mapState(['isLoading'])
+  }
+}
 </script>

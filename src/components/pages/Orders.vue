@@ -1,7 +1,8 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <table class="table mt-4">
-      <thead>
+      <thead class="bg-warning">
         <tr>
           <th width="80">購買時間</th>
           <th width="150">Email</th>
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import pagination from "@/components/pages/Pagination.vue";
 
 export default {
@@ -46,10 +48,12 @@ export default {
   },
   methods: {
     getData(page =1) {
+      this.$store.dispatch('LOADING', true);
       const api = `https://vue-course-api.hexschool.io/api/wendywu007/orders?page=${page}`;
       this.axios
         .get(api)
         .then(res => {
+          this.$store.dispatch('LOADING', false);
           console.log(res);
           this.order = res.data.orders;
           const date = new Date(this.order.create_at).getTime();  
@@ -60,6 +64,9 @@ export default {
   },
   created() {
     this.getData();
+  },
+  computed: {
+    ...mapState(['isLoading'])
   }
 }
 </script>

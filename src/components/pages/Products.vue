@@ -1,8 +1,9 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
       <button
-        class="btn btn-primary"
+        class="btn btn-warning"
         data-toggle="modal"
         data-target="#productModal"
         @click="openModal(true)"
@@ -11,13 +12,13 @@
       </button>
     </div>
     <table class="table mt-4">
-      <thead>
+      <thead class="bg-warning">
         <tr>
           <th width="120">分類</th>
           <th>產品名稱</th>
-          <th width="120">原價</th>
-          <th width="120">售價</th>
-          <th width="100">是否啟用</th>
+          <th width="80">原價</th>
+          <th width="80">售價</th>
+          <th width="90">是否啟用</th>
           <th width="90">編輯</th>
           <th width="90">刪除</th>
         </tr>
@@ -29,12 +30,12 @@
           <td class="text-right">{{ item.origin_price | currency}}</td>
           <td class="text-right">{{ item.price | currency}}</td>
           <td>
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
+            <span v-if="item.is_enabled" class="text-primary">啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-outline-success"
               btn-sm
               @click="openModal(false, item)"
             >
@@ -43,7 +44,7 @@
           </td>
           <td>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-outline-danger"
               btn-sm
               @click="deleteModal(item)"
             >
@@ -69,7 +70,7 @@
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
-          <div class="modal-header bg-dark text-white">
+          <div class="modal-header bg-warning text-dark">
             <h5 class="modal-title" id="exampleModalLabel">
               <span>新增產品</span>
             </h5>
@@ -225,7 +226,7 @@
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-warning"
               @click="updateProduct"
             >
               Save changes
@@ -403,7 +404,7 @@ export default {
     this.getData();
   },
   computed: {
-  ...mapState({})
+  ...mapState(['isLoading'])
   }
 };
 </script>

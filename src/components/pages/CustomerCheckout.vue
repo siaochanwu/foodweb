@@ -1,5 +1,6 @@
 <template>
   <div class="my-5 row justify-content-center">
+    <loading :active.sync="isLoading"></loading>
   <form ref="form" class="col-md-6" @submit.prevent="payOrder">
     <table class="table">
       <thead>
@@ -57,6 +58,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data(){
     return{
@@ -94,6 +97,9 @@ export default {
     this.orderId = this.$route.params.orderId;//對應路由上自定義的名稱
     console.log(this.orderId);
     this.getOrder();
+  },
+  computed: {
+    ...mapState(['isLoading'])
   }
 }
 </script>

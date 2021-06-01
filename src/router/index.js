@@ -7,10 +7,7 @@ import Admin from "@/components/pages/dashboard"
 import Products from "@/components/pages/Products"
 import Coupons from "@/components/pages/Coupons"
 import Orders from "@/components/pages/Orders"
-import CustomerOrder from "@/components/pages/CustomerOrder"
-import CustomerCheckout from "@/components/pages/CustomerCheckout"
-import Menu from "@/components/pages/Menu"
-import Normal from "@/components/pages/Normal";
+
 
 //自訂
 
@@ -58,30 +55,7 @@ const routes = [
         meta: { requiresAuth: true },
       }
     ]
-  },
-  {
-    path: '/',
-    name: "Normal",
-    component: Normal,
-    children: [
-      {
-        path: 'menu',
-        name: "Menu",
-        component: Menu,
-      },
-      {
-        path: 'customer_order',//不用加斜線
-        name: "CustomerOrder",
-        component: CustomerOrder,
-      },
-      {
-        path: 'customer_checkout/:orderId',//不用加斜線
-        name: "CustomerCheckout",
-        component: CustomerCheckout,
-      },
-    ]
-  },
-  
+  }
 ];
 
 const router = new VueRouter({

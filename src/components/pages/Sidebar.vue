@@ -15,13 +15,6 @@
               <li class="nav-item">
                 <router-link to="/admin/coupons" class="nav-link">優惠券</router-link>
               </li>
-              <span>模擬功能</span>
-              <li class="nav-item">
-                <router-link to="/menu" class="nav-link">菜單</router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/customer_order" class="nav-link">結帳區</router-link>
-              </li>
             </ul>
           </div>
         </nav>
@@ -34,8 +27,3 @@ export default {
   
 }
 </script>
-<style>
-  .sidebar {
-    
-  }
-</style>
